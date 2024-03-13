@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Jurnal{% endblock title %}
+{% block body %}
+    {% if pdf_path %}
+    <embed src="{{ pdf_path }}" type="application/pdf" width="100%" height="1000px" />
+    {% else %}
+    <p>PDF tidak ditemukan.</p>
+    {% endif %}
+{% endblock body %}

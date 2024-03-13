@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock title %}
+{% block body %}
+<div class="s013">
+    <form>
+      <fieldset>
+        <legend class="text-white fw-bold d-block" >Corrosion Drugs<span class="text-secondary"> Search Engine</span></legend>
+      </fieldset>
+      <div class="inner-form">
+        <div class="left">
+          <div class="input-wrap first">
+            <div class="input-field first">
+              <label>What you search?</label>
+              <input type="text" placeholder="ex: corrosion journal, corrosion materials, ML for corrosion, corrosion compounds, ACID" />
+            </div>
+          </div>
+        </div>
+        <button class="btn-search" type="button">SEARCH</button>
+      </div>
+    </form>
+  </div>
+  <script src="/static/jssearch/extention/choices.js"></script>
+  <script>
+    const choices = new Choices('[data-trigger]',
+    {
+      searchEnabled: false,
+      itemSelectText: '',
+    });
+
+  </script>
+{% endblock body %}

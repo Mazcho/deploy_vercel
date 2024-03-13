@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}CDML App{% endblock title %}
+{% block body %}
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5">
+    <div class="container text-center py-5">
+        <h1 class="display-2 text-white mb-4 animated slideInDown">Our Best Machine Learning Model</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#">Gradient Boosting Regressor Polynomial 60:40</a></li>
+            </ol>  
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#"><span style="color: white;">R2Score : </span><span style="color: #3FFF00;">99.99%</span> || <span style="color: white;">RMSE : </span><span style="color: #3FFF00;">0.0003</span></a></li>
+            </ol>            
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-12">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Molecular Descriptor Input</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">In this study, a published dataset containing
+                published dataset containing 250 drug compounds with 10 molecular descriptors as features [19]. Features
+                -The features are molecular weight (MW), acid dissociation constant (pKa), octanol-water partition coefficient
+                octanol-water partition coefficient (log P), water solubility (log S), polar surface area (PSA), polarization (α), energy of the
+                highest occupied molecular orbital (E-HOMO), lowest unoccupied molecular orbital energy (E-LUMO),
+                electrophilicity (ω), and fraction of shared electrons (∆N).</p>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{% if output %}<h2 > Corrosion Inhibition Efficiency : {{ output }} </h2>{% endif %}</p>
+            
+        </div>
+        <form method="POST" action="/app" class="mx-auto">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="MW" class="form-label">Molecular Weight (MW):</label>
+                    <input type="number" id="MW" name="MW" class="form-control" step="0.01" placeholder="ex: 194.19">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="pKa" class="form-label">Acid Dissociation Constant (pKa):</label>
+                    <input type="number" id="pKa" name="pKa" class="form-control" step="0.01" placeholder="Enter pKa">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="logP" class="form-label">Octanol-Water Partition Coefficient (log P):</label>
+                    <input type="number" id="logP" name="logP" class="form-control" step="0.01"
+                        placeholder="Enter log P">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="logS" class="form-label">Water Solubility (log S):</label>
+                    <input type="number" id="logS" name="logS" class="form-control" step="0.01" placeholder="Enter log S">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="PSA" class="form-label">Polar Surface Area (PSA):</label>
+                    <input type="number" id="PSA" name="PSA" class="form-control" step="0.01" placeholder="Enter PSA">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="polarizability" class="form-label">Polarizability (α):</label>
+                    <input type="number" id="polarizability" name="polarizability" class="form-control" step="0.01"
+                        placeholder="Enter α">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="E-HOMO" class="form-label">Energy of Highest Occupied Molecular Orbital
+                        (E-HOMO):</label>
+                    <input type="number" id="E-HOMO" name="E-HOMO" class="form-control" step="0.01"
+                        placeholder="Enter E-HOMO">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="E-LUMO" class="form-label">Energy of Lowest Unoccupied Molecular Orbital
+                        (E-LUMO):</label>
+                    <input type="number" id="E-LUMO" name="E-LUMO" class="form-control" step="0.01"
+                        placeholder="Enter E-LUMO">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                   
+
+ <label for="electrophilicity" class="form-label">Electrophilicity (ω):</label>
+                    <input type="number" id="electrophilicity" name="electrophilicity" class="form-control" step="0.01"
+                        placeholder="Enter ω">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="fraction_electron_shared" class="form-label">The Fraction Electron Shared
+                        (∆N):</label>
+                    <input type="number" id="fraction_electron_shared" name="fraction_electron_shared"
+                        class="form-control" step="0.01" placeholder="Enter ∆N">
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Predict</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock body %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}ML Ops{% endblock title %}
+{% block body %}
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5">
+    <div class="container text-center py-5">
+        <h1 class="display-2 text-white mb-4 animated slideInDown">Transformative Insights into Corrosion Inhibition: A Machine Learning Journey from Prediction to Web-Based Application</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#"></a></li>
+            </ol>  
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#"><span style="color: white;">R2Score : </span><span style="color: #3FFF00;">99.99%</span> || <span style="color: white;">RMSE : </span><span style="color: #3FFF00;">0.0003</span></a></li>
+            </ol>            
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-12">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Molecular Descriptor Input</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">In this study, a published dataset containing
+                published dataset containing 250 drug compounds with 10 molecular descriptors as features [19]. Features
+                -The features are molecular weight (MW), acid dissociation constant (pKa), octanol-water partition coefficient
+                octanol-water partition coefficient (log P), water solubility (log S), polar surface area (PSA), polarization (α), energy of the
+                highest occupied molecular orbital (E-HOMO), lowest unoccupied molecular orbital energy (E-LUMO),
+                electrophilicity (ω), and fraction of shared electrons (∆N).</p>
+                
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{% if result %}<h2 > Corrosion Inhibition Efficiency : {{ result }} </h2>{% endif %}</p>
+            
+            <hr class="border-t-2 border-gray-300">
+        </div>
+        <form method="POST" action="/manual_app" class="mx-auto">
+            {% csrf_token %}
+            <div class="row p-4">
+                <div class="bg-white rounded-lg col-lg-4 col-md-6 mb-4">
+                    <label for="algorithm_option" class="font-medium text-gray-700 form-label">Choose an Algorithm:</label>
+                    <div class="relative mt-1">
+                        <select id="algorithm_option" name="algorithm_option" class="form-control block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option selected value="Gradient Boosting Regressor">Gradient Boosting Regressor</option>
+                            <option value="Decision Tree Regressor">Decision Tree Regressor</option>
+                            <option value="Random Forest Regressor">Random Forest Regressor</option>
+                            <option value="K-Neighbors Regressor">K-Neighbors Regressor</option>
+                            <option value="Elastic Net">Elastic Net</option>
+                            <option value="Lasso">Lasso</option>
+                            <option value="Linear Regression">Linear Regression</option>
+                            <option value="SVR">SVR</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.293 8.707a1 1 0 011.414 0L10 10.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg col-lg-4 col-md-6 mb-4">
+                    <label for="normalization_option" class="font-medium text-gray-700 form-label">Choose an Normalization Method:</label>
+                    <div class="relative mt-1">
+                        <select id="normalization_option" name="normalization_option" class="form-control block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option selected value="MinMaxScaler()">Min Max Scaler</option>
+                            <option value="StandardScaler()">Standard Scaler</option>
+                            <option value="RobustScaler()">Robust Scaler</option>
+                            <option value="None">Without Normalization</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.293 8.707a1 1 0 011.414 0L10 10.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg col-lg-4 col-md-6 mb-4">
+                    <label for="split_option" class="font-medium text-gray-700 form-label">Choose an Data Split:</label>
+                    <div class="relative mt-1">
+                        <select id="split_option" name="split_option" class="form-control block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option selected value="0.2">HOCV 80:20</option>
+                            <option value="0.3">HOCV 70:30</option>
+                            <option value="0.4">HOCV 60:40</option>
+                            <option value="3">KFCV 3</option>
+                            <option value="5">KFCV 5</option>
+                            <option value="10">KFCV 10</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.293 8.707a1 1 0 011.414 0L10 10.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="MW" class="form-label">Molecular Weight (MW):</label>
+                    <input type="number" id="MW" name="MW" class="form-control" step="0.01" placeholder="ex: 194.19">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="pKa" class="form-label">Acid Dissociation Constant (pKa):</label>
+                    <input type="number" id="pKa" name="pKa" class="form-control" step="0.01" placeholder="Enter pKa">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="logP" class="form-label">Octanol-Water Partition Coefficient (log P):</label>
+                    <input type="number" id="logP" name="logP" class="form-control" step="0.01"
+                        placeholder="Enter log P">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="logS" class="form-label">Water Solubility (log S):</label>
+                    <input type="number" id="logS" name="logS" class="form-control" step="0.01" placeholder="Enter log S">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="PSA" class="form-label">Polar Surface Area (PSA):</label>
+                    <input type="number" id="PSA" name="PSA" class="form-control" step="0.01" placeholder="Enter PSA">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="polarizability" class="form-label">Polarizability (α):</label>
+                    <input type="number" id="polarizability" name="polarizability" class="form-control" step="0.01"
+                        placeholder="Enter α">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="E-HOMO" class="form-label">Energy of Highest Occupied Molecular Orbital
+                        (E-HOMO):</label>
+                    <input type="number" id="E-HOMO" name="E-HOMO" class="form-control" step="0.01"
+                        placeholder="Enter E-HOMO">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="E-LUMO" class="form-label">Energy of Lowest Unoccupied Molecular Orbital
+                        (E-LUMO):</label>
+                    <input type="number" id="E-LUMO" name="E-LUMO" class="form-control" step="0.01"
+                        placeholder="Enter E-LUMO">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                   
+
+ <label for="electrophilicity" class="form-label">Electrophilicity (ω):</label>
+                    <input type="number" id="electrophilicity" name="electrophilicity" class="form-control" step="0.01"
+                        placeholder="Enter ω">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="fraction_electron_shared" class="form-label">The Fraction Electron Shared
+                        (∆N):</label>
+                    <input type="number" id="fraction_electron_shared" name="fraction_electron_shared"
+                        class="form-control" step="0.01" placeholder="Enter ∆N">
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Predict</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock body %}
